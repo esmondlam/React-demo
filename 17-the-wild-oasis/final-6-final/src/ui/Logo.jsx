@@ -1,14 +1,11 @@
 import styled from "styled-components";
 import { useDarkMode } from "../context/DarkModeContext";
+import Heading from "./Heading";
 
 const StyledLogo = styled.div`
   text-align: center;
 `;
 
-const Img = styled.img`
-  height: 9.6rem;
-  width: auto;
-`;
 
 function Logo() {
   const { isDarkMode } = useDarkMode();
@@ -17,7 +14,7 @@ function Logo() {
 
   return (
     <StyledLogo>
-      <Img src={src} alt="Logo" />
+      <Heading as="h4">Flex System</Heading>
     </StyledLogo>
   );
 }

@@ -18,14 +18,14 @@ export async function signup({ fullName, email, password }) {
 }
 
 export async function login({ email, password }) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  // const { data, error } = await supabase.auth.signInWithPassword({
+  //   email,
+  //   password,
+  // });
+  //
+  // if (error) throw new Error(error.message);
 
-  if (error) throw new Error(error.message);
-
-  return data;
+  return {Session:"", User:""};
 }
 
 export async function getCurrentUser() {

@@ -1,12 +1,18 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import {
+  HiChartBar,
+  HiCreditCard,
+  HiListBullet,
   HiOutlineCalendarDays,
+  HiOutlineChartPie,
   HiOutlineCog6Tooth,
   HiOutlineHome,
   HiOutlineHomeModern,
   HiOutlineUsers,
+  HiTableCells,
 } from "react-icons/hi2";
+import Table from "./Table";
 
 const NavList = styled.ul`
   display: flex;
@@ -58,27 +64,39 @@ function MainNav() {
     <nav>
       <NavList>
         <li>
-          <StyledNavLink to="/dashboard">
+          <StyledNavLink to="/summary">
             <HiOutlineHome />
-            <span>Home</span>
+            <span>Summary</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/bookings">
-            <HiOutlineCalendarDays />
-            <span>Bookings</span>
+          <StyledNavLink to="/piechart">
+            <HiOutlineChartPie />
+            <span>Pie/Donut</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/cabins">
-            <HiOutlineHomeModern />
-            <span>Cabins</span>
+          <StyledNavLink to="/barchart">
+            <HiChartBar />
+            <span>Chart</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/users">
-            <HiOutlineUsers />
-            <span>Users</span>
+          <StyledNavLink to="/cards">
+            <HiCreditCard />
+            <span>Card</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/list">
+            <HiListBullet />
+            <span>List</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/table">
+            <HiTableCells />
+            <span>Table</span>
           </StyledNavLink>
         </li>
         <li>
