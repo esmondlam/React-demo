@@ -1,7 +1,7 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { login as loginApi } from '../../services/apiAuth';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { login as loginApi } from "../../services/apiAuth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 export function useLogin() {
   const queryClient = useQueryClient();
@@ -11,11 +11,11 @@ export function useLogin() {
     mutationFn: ({ email, password }) => loginApi({ email, password }),
     onSuccess: (user) => {
       console.log(user);
-      navigate('/dashboard', { replace: true });
+      navigate("/summary", { replace: true });
     },
     onError: (err) => {
-      console.log('ERROR', err);
-      toast.error('Provided email or password are incorrect');
+      console.log("ERROR", err);
+      toast.error("Provided email or password are incorrect");
     },
   });
 

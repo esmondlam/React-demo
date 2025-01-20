@@ -16,8 +16,8 @@ import BarTemplate from "./pages/BarTemplate";
 import CardsTemplate from "./pages/CardsTemplate";
 import ListTemplate from "./pages/ListTemplate";
 import TableTemplate from "./pages/TableTemplate";
+import Dashboard from "./pages/Dashboard";
 import { DarkModeProvider } from "./context/DarkModeContext";
-
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,11 +37,7 @@ function App() {
         <GlobalStyles />
         <BrowserRouter>
           <Routes>
-            <Route
-              element={
-                  <AppLayout />
-              }
-            >
+            <Route element={<AppLayout />}>
               <Route index element={<Navigate replace to="summary" />} />
               <Route path="summary" element={<Summary />} />
               <Route path="piechart" element={<PieTemplate />} />

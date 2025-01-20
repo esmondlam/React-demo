@@ -5,7 +5,8 @@ import {
   Legend,
   Cell,
   ResponsiveContainer,
-  Label
+  Label,
+  Tooltip,
 } from "recharts";
 import TemplateContainer from "../ui/TemplateContainer";
 import Heading from "../ui/Heading";
@@ -20,7 +21,7 @@ import Button from "../ui/Button";
 const data01 = [
   { name: "0 day", value: 90 },
   { name: "46-90 days", value: 25 },
-  { name: "121-150 days", value: 10 }
+  { name: "121-150 days", value: 10 },
 ];
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
@@ -32,7 +33,7 @@ const Bullet = ({ backgroundColor, size }) => {
       style={{
         backgroundColor,
         width: size,
-        height: size
+        height: size,
       }}
     ></div>
   );
@@ -87,27 +88,38 @@ const CustomLabel = ({ viewBox, labelText, value }) => {
 };
 
 function PieDiagram() {
- return (
-   <div style={{ width: "100%", height: 420 }}>
-     <ResponsiveContainer>
-       <PieChart>
-         <Pie
-           data={data01}
-           dataKey="value"
-           cx={200}
-           cy={200}
-           innerRadius={80}
-           outerRadius={100}
-         >
-           {data01.map((entry, index) => (
-             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-           ))}
-         </Pie>
-         <Legend content={<CustomizedLegend />} />
-       </PieChart>
-     </ResponsiveContainer>
-   </div>
- ); 
+  return (
+    <div style={{ width: "100%", height: 420 }}>
+      <ResponsiveContainer style={{ display: "flex" }}>
+        <PieChart>
+          <Pie
+            data={data01}
+            dataKey="value"
+            cx="40%"
+            cy="50%"
+            paddingAngle={3}
+            innerRadius={80}
+            outerRadius={100}
+          >
+            {data01.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend
+            verticalAlign="middle"
+            align="right"
+            layout="vertical"
+            width="30%"
+            iconType="circle"
+          />
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
+  );
 }
 const PieCardList = [
   { title: "Current", amount: "$4,508,758.48" },
@@ -119,7 +131,7 @@ function PieMain() {
     <>
       <div style={{ padding: "3rem" }}>
         <Row type="horizontal">
-        <Heading as="h2">Account Receivable</Heading>
+          <Heading as="h2">Account Receivable</Heading>
           <ButtonIcon>
             <HiOutlineMagnifyingGlass />
           </ButtonIcon>
@@ -133,7 +145,12 @@ function PieMain() {
 
 function PieSidebar() {
   return (
-    <Form style={{ backgroundColor: "var(--color-grey-0)" }}>
+    <Form
+      style={{
+        backgroundColor: "var(--color-grey-0)",
+        "box-shadow": "black 1px 1px 1px 1px",
+      }}
+    >
       <FormRow label="Report Title">
         <Input type="number" id="min-nights" />
       </FormRow>
@@ -152,8 +169,17 @@ function PieSidebar() {
       <FormRow label="Chart type">
         <Input type="number" id="breakfast-price" />
       </FormRow>
-      <div style={{display:"flex", gap:"2rem", "justify-content":"end", "margin-top": "1rem"}}>
-        <Button size="medium" variation="secondary">Preview</Button>
+      <div
+        style={{
+          display: "flex",
+          gap: "2rem",
+          "justify-content": "end",
+          "margin-top": "1rem",
+        }}
+      >
+        <Button size="medium" variation="secondary">
+          Preview
+        </Button>
         <Button size="medium">Save</Button>
       </div>
     </Form>
@@ -161,7 +187,5 @@ function PieSidebar() {
 }
 
 export default function PieTemplate() {
-  return (
-    <TemplateContainer main={<PieMain />} side={<PieSidebar />}/>
-  );
+  return <TemplateContainer main={<PieMain />} side={<PieSidebar />} />;
 }

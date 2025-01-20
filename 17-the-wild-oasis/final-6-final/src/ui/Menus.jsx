@@ -115,7 +115,7 @@ function List({ id, children }) {
     <StyledList position={position} ref={ref}>
       {children}
     </StyledList>,
-    document.body
+    document.body,
   );
 }
 
