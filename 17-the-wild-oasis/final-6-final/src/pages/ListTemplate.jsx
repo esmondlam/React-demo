@@ -9,7 +9,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Area
+  Area,
 } from "recharts";
 import TemplateContainer from "../ui/TemplateContainer";
 import Heading from "../ui/Heading";
@@ -67,7 +67,7 @@ const SummaryArray = [
     amount: "$545,200",
     updateDate: "16/10/2025",
   },
-]
+];
 const StyledToday = styled.div`
   /* Box */
   background-color: var(--color-grey-0);
@@ -95,9 +95,14 @@ const TodayList = styled.ul`
 `;
 
 function TodayItem({ summary }) {
-
   return (
-    <Row type="horizontal" style={{"border-bottom": "1px solid var(--color-grey-100)", "margin-bottom": "1rem"}}>
+    <Row
+      type="horizontal"
+      style={{
+        "border-bottom": "1px solid var(--color-grey-100)",
+        "margin-bottom": "1rem",
+      }}
+    >
       <div>{summary.title}</div>
       <div>{summary.amount}</div>
     </Row>
@@ -107,35 +112,37 @@ function TodayItem({ summary }) {
 function ExpenseList() {
   return (
     <StyledToday>
-          <TodayList>
-            {SummaryArray.map((summary) => (
-              <TodayItem summary={summary} />
-            ))}
-          </TodayList>
+      <TodayList>
+        {SummaryArray.map((summary) => (
+          <TodayItem summary={summary} />
+        ))}
+      </TodayList>
     </StyledToday>
   );
 }
 
-function BarMain() {
+function ListMain() {
   return (
     <>
-      <div style={{ padding: "3rem" }}>
-        <Row type="horizontal" style={{"margin-bottom": "1rem"}}>
+      <div className="main-content" style={{ padding: "3rem" }}>
+        <Row type="horizontal" style={{ "margin-bottom": "1rem" }}>
           <Heading as="h2">Expenses</Heading>
           <ButtonIcon>
             <HiOutlineMagnifyingGlass />
           </ButtonIcon>
         </Row>
-        <Heading as="h4" style={{"margin-bottom": "1rem"}}>$545,200</Heading>
+        <Heading as="h4" style={{ "margin-bottom": "1rem" }}>
+          $545,200
+        </Heading>
         <ExpenseList />
       </div>
     </>
   );
 }
 
-function BarSidebar() {
+function ListSidebar() {
   return (
-    <Form style={{ backgroundColor: "var(--color-grey-0)" }}>
+    <Form>
       <FormRow label="Report Title">
         <Input type="number" id="min-nights" />
       </FormRow>
@@ -154,16 +161,10 @@ function BarSidebar() {
       <FormRow label="Tab Page">
         <Input type="number" id="breakfast-price" />
       </FormRow>
-      <div style={{display:"flex", gap:"2rem", "justify-content":"end", "margin-top": "1rem"}}>
-        <Button size="medium" variation="secondary">Preview</Button>
-        <Button size="medium">Save</Button>
-      </div>
     </Form>
   );
 }
 
 export default function ListTemplate() {
-  return (
-    <TemplateContainer main={<BarMain />} side={<BarSidebar />}/>
-  );
+  return <TemplateContainer main={<ListMain />} side={<ListSidebar />} />;
 }

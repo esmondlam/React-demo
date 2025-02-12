@@ -1,5 +1,7 @@
 import ButtonIcon from "../ui/ButtonIcon";
 import * as React from "react";
+import { useState } from "react";
+import { useNavigate, Outlet, useOutletContext } from "react-router-dom";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -20,6 +22,7 @@ import FormRow from "../ui/FormRow";
 import Input from "../ui/Input";
 import Form from "../ui/Form";
 import Button from "../ui/Button";
+import styled from "styled-components";
 
 const data = [
   {
@@ -61,6 +64,8 @@ const data = [
 ];
 
 function BarDiagram() {
+  const navigate = useNavigate();
+
   return (
     <div style={{ width: "100%", height: 420 }}>
       <ResponsiveContainer width="100%" height={400}>
@@ -70,6 +75,8 @@ function BarDiagram() {
           data={data}
           stackOffset="expand"
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/barchart/chart")}
         >
           <XAxis dataKey="month" />
           <YAxis />
@@ -105,67 +112,132 @@ function BarDiagram() {
   );
 }
 const BarCardList = [
-  { title: "Total Opening", amount: "$4,508,758.48" },
-  { title: "Total In", amount: "$28,413,776.12" },
-  { title: "Total Out", amount: "$34,694,984.48" },
-  { title: "Total Closing", amount: "$28,413,776.12" },
+  { id: 1, title: "Total Opening", amount: "$4,508,758.48" },
+  { id: 2, title: "Total In", amount: "$28,413,776.12" },
+  { id: 3, title: "Total Out", amount: "$34,694,984.48" },
+  { id: 4, title: "Total Closing", amount: "$28,413,776.12" },
 ];
 
-function BarMain() {
+const MainContentContainer = styled.div`
+  padding: 3rem;
+
+  & > * {
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+`;
+
+function BarMain({ reportTitle }) {
+  const navigate = useNavigate();
   return (
     <>
-      <div style={{ padding: "3rem" }}>
+      <MainContentContainer className="main-content">
         <Row type="horizontal">
-          <Heading as="h2">Net Cash Flow</Heading>
+          <Heading as="h2" onClick={() => navigate("/barchart/title")}>
+            {reportTitle === "" ? "---" : reportTitle}
+          </Heading>
           <ButtonIcon>
             <HiOutlineMagnifyingGlass />
           </ButtonIcon>
         </Row>
         <BarDiagram />
         <CardList cardList={BarCardList} />
-      </div>
+      </MainContentContainer>
     </>
   );
 }
 
-function BarSidebar() {
+function BarReportTitle() {
+  const { reportTitle, handleReportTitle } = useOutletContext();
+
   return (
-    <Form style={{ backgroundColor: "var(--color-grey-0)" }}>
+    <Form>
       <FormRow label="Report Title">
-        <Input type="number" id="min-nights" />
+        <Input
+          type="text"
+          id="min-nights"
+          onChange={handleReportTitle}
+          value={reportTitle}
+        />
       </FormRow>
-
-      <FormRow label="Ledger code">
-        <Input type="number" id="max-nights" />
-      </FormRow>
-
-      <FormRow label="Account period">
-        <Input type="number" id="max-guests" />
-      </FormRow>
-
-      <FormRow label="Year">
-        <Input type="number" id="breakfast-price" />
-      </FormRow>
-      <FormRow label="Chart type">
-        <Input type="number" id="breakfast-price" />
-      </FormRow>
-      <div
-        style={{
-          display: "flex",
-          gap: "2rem",
-          "justify-content": "end",
-          "margin-top": "1rem",
-        }}
-      >
-        <Button size="medium" variation="secondary">
-          Preview
-        </Button>
-        <Button size="medium">Save</Button>
-      </div>
     </Form>
   );
 }
 
-export default function BarTemplate() {
-  return <TemplateContainer main={<BarMain />} side={<BarSidebar />} />;
+function BarSidebar() {
+  const {
+    ledgerCode,
+    accountPeriod,
+    accountYear,
+    chartType,
+    handleLedgerCode,
+    handleAccountPeriod,
+    handleAccountYear,
+    handleChartType,
+  } = useOutletContext();
+  return (
+    <Form>
+      <FormRow label="Ledger code">
+        <Input type="text" onChange={handleLedgerCode} value={ledgerCode} />
+      </FormRow>
+
+      <FormRow label="Account period">
+        <Input
+          type="text"
+          onChange={handleAccountPeriod}
+          value={accountPeriod}
+        />
+      </FormRow>
+
+      <FormRow label="Year">
+        <Input type="text" onChange={handleAccountYear} value={accountYear} />
+      </FormRow>
+      <FormRow label="Chart type">
+        <Input type="text" onChange={handleChartType} value={chartType} />
+      </FormRow>
+    </Form>
+  );
 }
+
+function BarTemplate() {
+  const [reportTitle, setReportTitle] = useState("");
+  const [ledgerCode, setLedgerCode] = useState("");
+  const [accountPeriod, setAccountPeriod] = useState("");
+  const [accountYear, setAccountYear] = useState("");
+  const [chartType, setChartType] = useState("");
+
+  const handleReportTitle = (e) => setReportTitle(e.target.value);
+  const handleLedgerCode = (e) => setLedgerCode(e.target.value);
+  const handleAccountPeriod = (e) => setAccountPeriod(e.target.value);
+  const handleAccountYear = (e) => setAccountYear(e.target.value);
+  const handleChartType = (e) => setChartType(e.target.value);
+
+  return (
+    <>
+      <TemplateContainer
+        main={<BarMain reportTitle={reportTitle} />}
+        side={
+          <Outlet
+            context={{
+              reportTitle,
+              ledgerCode,
+              accountPeriod,
+              accountYear,
+              chartType,
+              handleReportTitle,
+              handleLedgerCode,
+              handleAccountPeriod,
+              handleAccountYear,
+              handleChartType,
+            }}
+          />
+        }
+      />
+    </>
+  );
+}
+
+export { BarReportTitle, BarSidebar, BarTemplate };

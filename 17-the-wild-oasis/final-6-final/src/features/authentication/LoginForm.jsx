@@ -8,34 +8,34 @@ import SpinnerMini from "../../ui/SpinnerMini";
 import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
-  const [email, setEmail] = useState("");
+  const [userCode, setUserCode] = useState("");
   const [password, setPassword] = useState("");
   const { login, isLoading } = useLogin();
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!email || !password) return;
+    //if (!usercode || !password) return;
     login(
-      { email, password },
+      { userCode, password },
       {
         onSettled: () => {
-          setEmail("");
+          setUserCode("");
           setPassword("");
         },
-      }
+      },
     );
   }
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormRowVertical label="Email address">
+      <FormRowVertical label="User">
         <Input
-          type="email"
-          id="email"
+          type="text"
+          id="userCode"
           // This makes this form better for password managers
           autoComplete="username"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={userCode}
+          onChange={(e) => setUserCode(e.target.value)}
           disabled={isLoading}
         />
       </FormRowVertical>

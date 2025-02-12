@@ -119,7 +119,7 @@ function prepareData(startData, stays) {
 
   function incArrayValue(arr, field) {
     return arr.map((obj) =>
-      obj.duration === field ? { ...obj, value: obj.value + 1 } : obj
+      obj.duration === field ? { ...obj, value: obj.value + 1 } : obj,
     );
   }
 
@@ -148,7 +148,7 @@ function DurationChart({ confirmedStays }) {
 
   return (
     <ChartBox>
-      <Heading as="h2">Stay duration summary</Heading>
+      <Heading as="h2">Department Expense Summary</Heading>
       <ResponsiveContainer width="100%" height={240}>
         <PieChart>
           <Pie

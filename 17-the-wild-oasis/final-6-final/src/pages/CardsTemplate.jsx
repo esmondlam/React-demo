@@ -9,7 +9,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Area
+  Area,
 } from "recharts";
 import TemplateContainer from "../ui/TemplateContainer";
 import Heading from "../ui/Heading";
@@ -45,54 +45,52 @@ const SummaryArray = [
     amount: "$545,200",
     updateDate: "16/10/2025",
   },
-]
+];
 const StyleCardContainer = styled.div`
   background-color: var(--color-grey-0);
   padding: 3rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-bottom:1rem;
+  margin-bottom: 1rem;
 `;
 
-
-function Card({summary}) {
+function Card({ summary }) {
   return (
     <StyleCardContainer>
       <Heading as="h3">{summary.title}</Heading>
       <div style={{ color: "var(--color-grey-500)" }}>{summary.subtitle}</div>
-      <div style={{display: "flex", "justify-content": "space-between"}}>
-      <Heading as="h4">{summary.amount}</Heading>
-            <ButtonIcon>
-              <HiOutlineArrowUpLeft />
-            </ButtonIcon>
+      <div style={{ display: "flex", "justify-content": "space-between" }}>
+        <Heading as="h4">{summary.amount}</Heading>
+        <ButtonIcon>
+          <HiOutlineArrowUpLeft />
+        </ButtonIcon>
       </div>
     </StyleCardContainer>
   );
-} 
+}
 
-
-function BarMain() {
+function CardMain() {
   return (
     <>
-      <div style={{ padding: "3rem" }}>
-        <Row type="horizontal" style={{"margin-bottom": "1rem"}}>
+      <div className="main-content" style={{ padding: "3rem" }}>
+        <Row type="horizontal" style={{ "margin-bottom": "1rem" }}>
           <Heading as="h2">Profit & Loss</Heading>
           <ButtonIcon>
             <HiOutlineMagnifyingGlass />
           </ButtonIcon>
         </Row>
-          {SummaryArray.map((summary) => (
-            <Card summary={summary} />
-          ))}
+        {SummaryArray.map((summary) => (
+          <Card summary={summary} />
+        ))}
       </div>
     </>
   );
 }
 
-function BarSidebar() {
+function CardSideBar() {
   return (
-    <Form style={{ backgroundColor: "var(--color-grey-0)" }}>
+    <Form>
       <FormRow label="Report Title">
         <Input type="number" id="min-nights" />
       </FormRow>
@@ -111,16 +109,10 @@ function BarSidebar() {
       <FormRow label="Chart type">
         <Input type="number" id="breakfast-price" />
       </FormRow>
-      <div style={{display:"flex", gap:"2rem", "justify-content":"end", "margin-top": "1rem"}}>
-        <Button size="medium" variation="secondary">Preview</Button>
-        <Button size="medium">Save</Button>
-      </div>
     </Form>
   );
 }
 
 export default function CardsTemplate() {
-  return (
-    <TemplateContainer main={<BarMain />} side={<BarSidebar />}/>
-  );
+  return <TemplateContainer main={<CardMain />} side={<CardSideBar />} />;
 }

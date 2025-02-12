@@ -7,9 +7,11 @@ import {
   HiOutlineCalendarDays,
   HiOutlineChartPie,
   HiOutlineCog6Tooth,
+  HiOutlineDocument,
   HiOutlineHome,
   HiOutlineHomeModern,
   HiOutlineUsers,
+  HiOutlineViewColumns,
   HiTableCells,
 } from "react-icons/hi2";
 import Table from "./Table";
@@ -100,9 +102,21 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
+          <StyledNavLink to="/dashboard">
+            <HiOutlineViewColumns />
+            <span>Dashboard</span>
+          </StyledNavLink>
+        </li>
+        <li>
           <StyledNavLink to="/settings">
             <HiOutlineCog6Tooth />
             <span>Settings</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/settings">
+            <HiOutlineCog6Tooth />
+            <span>TestTemplate</span>
           </StyledNavLink>
         </li>
       </NavList>

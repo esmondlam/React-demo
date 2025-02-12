@@ -1,5 +1,7 @@
 import supabase, { supabaseUrl } from "./supabase";
 
+const URL = "http://127.0.0.1:6090";
+
 export async function signup({ fullName, email, password }) {
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -17,7 +19,23 @@ export async function signup({ fullName, email, password }) {
   return data;
 }
 
-export async function login({ email, password }) {
+export async function login({ userCode, password }) {
+  try {
+    let res = await fetch(`${URL}/WebClientLogin`, {
+      method: "POST",
+      body: JSON.stringify({
+        UserCode: userCode,
+        Password: password,
+      }),
+    });
+    let resultObj = await res.json();
+    console.log(resultObj);
+    if (resultObj.Status !== "Success") {
+      throw new Error(resultObj.Message);
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
   // const { data, error } = await supabase.auth.signInWithPassword({
   //   email,
   //   password,
@@ -25,7 +43,7 @@ export async function login({ email, password }) {
   //
   // if (error) throw new Error(error.message);
 
-  return {Session:"", User:""};
+  return { Session: "", User: "" };
 }
 
 export async function getCurrentUser() {
@@ -39,8 +57,22 @@ export async function getCurrentUser() {
 }
 
 export async function logout() {
-  const { error } = await supabase.auth.signOut();
-  if (error) throw new Error(error.message);
+  // try {
+  //   let res = await fetch(`${URL}/WebClientLogout`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       ClientSession: "VlQsOmrcwOGUJjGq",
+  //     }),
+  //   });
+  //   let resultObj = await res.json();
+  //   console.log(resultObj);
+  //   if (resultObj.Status === "Error") {
+  //     throw new Error(resultObj.Message);
+  //   }
+  // } catch (error) {
+  //   throw new Error("Can't fetch from endpoint", error.message);
+  // }
 }
 
 export async function updateCurrentUser({ password, fullName, avatar }) {

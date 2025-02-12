@@ -55,10 +55,10 @@ const SummaryArray = [
   },
 ];
 
-function BarMain() {
+function TableMain() {
   return (
     <>
-      <div style={{ padding: "3rem" }}>
+      <div className="main-content" style={{ padding: "3rem" }}>
         <Row type="horizontal" style={{ "margin-bottom": "1rem" }}>
           <Heading as="h2">Expenses</Heading>
           <ButtonIcon>
@@ -97,9 +97,9 @@ function SummaryRow({ summary }) {
   );
 }
 
-function BarSidebar() {
+function TableSidebar() {
   return (
-    <Form style={{ backgroundColor: "var(--color-grey-0)" }}>
+    <Form>
       <FormRow label="Report Title">
         <Input type="number" id="min-nights" />
       </FormRow>
@@ -118,23 +118,10 @@ function BarSidebar() {
       <FormRow label="Tab Page">
         <Input type="number" id="breakfast-price" />
       </FormRow>
-      <div
-        style={{
-          display: "flex",
-          gap: "2rem",
-          "justify-content": "end",
-          "margin-top": "1rem",
-        }}
-      >
-        <Button size="medium" variation="secondary">
-          Preview
-        </Button>
-        <Button size="medium">Save</Button>
-      </div>
     </Form>
   );
 }
 
 export default function TableTemplate() {
-  return <TemplateContainer main={<BarMain />} side={<BarSidebar />} />;
+  return <TemplateContainer main={<TableMain />} side={<TableSidebar />} />;
 }

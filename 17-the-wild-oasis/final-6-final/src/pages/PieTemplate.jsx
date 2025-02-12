@@ -129,7 +129,7 @@ const PieCardList = [
 function PieMain() {
   return (
     <>
-      <div style={{ padding: "3rem" }}>
+      <div className="main-content" style={{ padding: "3rem" }}>
         <Row type="horizontal">
           <Heading as="h2">Account Receivable</Heading>
           <ButtonIcon>
@@ -148,7 +148,7 @@ function PieSidebar() {
     <Form
       style={{
         backgroundColor: "var(--color-grey-0)",
-        "box-shadow": "black 1px 1px 1px 1px",
+        boxShadow: "black 1px 1px 1px 1px",
       }}
     >
       <FormRow label="Report Title">
@@ -169,19 +169,6 @@ function PieSidebar() {
       <FormRow label="Chart type">
         <Input type="number" id="breakfast-price" />
       </FormRow>
-      <div
-        style={{
-          display: "flex",
-          gap: "2rem",
-          "justify-content": "end",
-          "margin-top": "1rem",
-        }}
-      >
-        <Button size="medium" variation="secondary">
-          Preview
-        </Button>
-        <Button size="medium">Save</Button>
-      </div>
     </Form>
   );
 }

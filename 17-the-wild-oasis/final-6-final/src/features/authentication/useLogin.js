@@ -8,7 +8,7 @@ export function useLogin() {
   const navigate = useNavigate();
 
   const { mutate: login, isLoading } = useMutation({
-    mutationFn: ({ email, password }) => loginApi({ email, password }),
+    mutationFn: ({ userCode, password }) => loginApi({ userCode, password }),
     onSuccess: (user) => {
       console.log(user);
       navigate("/summary", { replace: true });

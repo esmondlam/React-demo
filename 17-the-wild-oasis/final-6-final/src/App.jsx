@@ -12,10 +12,11 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 import PieTemplate from "./pages/PieTemplate";
-import BarTemplate from "./pages/BarTemplate";
+import { BarTemplate, BarSidebar, BarReportTitle } from "./pages/BarTemplate";
 import CardsTemplate from "./pages/CardsTemplate";
 import ListTemplate from "./pages/ListTemplate";
 import TableTemplate from "./pages/TableTemplate";
+import { TemplateConfig } from "./pages/TemplateConfig";
 import Dashboard from "./pages/Dashboard";
 import { DarkModeProvider } from "./context/DarkModeContext";
 
@@ -38,15 +39,20 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route element={<AppLayout />}>
-              <Route index element={<Navigate replace to="summary" />} />
+              <Route index element={<Navigate replace to="login" />} />
               <Route path="summary" element={<Summary />} />
               <Route path="piechart" element={<PieTemplate />} />
-              <Route path="barchart" element={<BarTemplate />} />
+              <Route path="barchart" element={<BarTemplate />}>
+                <Route path="chart" element={<BarSidebar />} />
+                <Route path="title" element={<BarReportTitle />} />
+              </Route>
               <Route path="cards" element={<CardsTemplate />} />
               <Route path="list" element={<ListTemplate />} />
               <Route path="table" element={<TableTemplate />} />
               <Route path="settings" element={<Settings />} />
               <Route path="account" element={<Account />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="templates/:component" element={<TemplateConfig />} />
             </Route>
 
             <Route path="login" element={<Login />} />
