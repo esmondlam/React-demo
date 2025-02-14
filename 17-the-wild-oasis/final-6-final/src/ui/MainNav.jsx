@@ -114,7 +114,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/settings">
+          <StyledNavLink to="/templates/barchart">
             <HiOutlineCog6Tooth />
             <span>TestTemplate</span>
           </StyledNavLink>

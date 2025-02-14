@@ -122,7 +122,7 @@ const MainContentContainer = styled.div`
   padding: 3rem;
 
   & > * {
-    transition: transform 0.2s;
+    transition: transform 0.1s;
 
     &:hover {
       transform: scale(1.02);

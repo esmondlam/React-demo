@@ -52,7 +52,12 @@ function App() {
               <Route path="settings" element={<Settings />} />
               <Route path="account" element={<Account />} />
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="templates/:component" element={<TemplateConfig />} />
+              <Route
+                path="templates/:templateType"
+                element={<TemplateConfig />}
+              >
+                <Route path=":formType" element={<TemplateConfig />} />
+              </Route>
             </Route>
 
             <Route path="login" element={<Login />} />
